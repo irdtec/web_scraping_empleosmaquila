@@ -1,7 +1,7 @@
 '''
 Analyze a very specific job listing site called empleosmaquila.com, which is a site that focus on jobs on the manufacturing industry on the northen states of Mexico
 '''
-import time, traceback
+import time
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
@@ -92,104 +92,3 @@ except Exception as e:
     print(e)
 
 driver.quit()
-
-
-# def get_site_info(url:str):
-#     result =""
-#     # Send an HTTP GET request to the URL
-#     response = requests.get(url)
-
-#     # Check if the request was successful (status code 200)
-#     if response.status_code == 200:
-#         # Print the HTML content of the web page
-#         result = response.text        
-#     else:
-#         print('Failed to retrieve the web page:', response.status_code)
-
-#     return result
-
-
-# def extract_jobs_data(html_code:str):
-#     result = []
-#     soup = BeautifulSoup(html_code,'html.parser')
-#     tables = soup.select("table")
-    
-#     jobs = tables[0].select("tr[onclick]")
-#     for job in jobs:
-#         job_data = job.select("td")
-#         result.append({
-#             "date":job_data[0].text,
-#             "location":job_data[1].text,
-#             "title":job_data[2].text,
-#             "bussiness":job_data[3].text,
-#         })
-
-#     return result
-
-# def extract_page_nums(html_code:str):
-#     soup = BeautifulSoup(html_code,'html.parser')
-#     tables = soup.select("table")
-    
-#     # num of pages
-#     result = len(tables[0].select("td > a[href*='Datagrid']"))
-#     return result
-    
-    
-
-
-# def perform_post(url:str, page_num:str):    
-#     headers = {
-#         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0",
-#         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-#         "Accept-Language": "en-US,en;q=0.5",
-#         "Accept-Encoding": "gzip, deflate, br",
-#         "Content-Type": "application/x-www-form-urlencoded"
-#     }
-
-#     data = {
-#         "__LASTFOCUS": "",
-#         "__EVENTTARGET":"Datagrid1",
-#         "__EVENTARGUMENT": f"Page${page_num}",
-#         "DropCiudad":"ALL",
-#         "TxtSearch":""
-#     }
-
-#     # Send a POST request with headers
-#     response = requests.post(url, headers=headers, json=data)
-    
-#     result = ""
-#     # Check the response
-#     if response.status_code == 200:
-#         print(f'Page: {page_num}')        
-#         result = response.text
-#     else:
-#         print('Failed to perform POST request:', response.status_code)
-
-#     return result
-
-
-
-# main_url = 'https://www.empleosmaquila.com/listaofertas.aspx'
-# result = []
-# html_text = get_site_info(main_url)
-# total_pages = extract_page_nums(html_text)
-# print(total_pages)
-
-# # Get the data from the 1st page
-# result.extend( extract_jobs_data(html_text) )
-
-# page_counter = 2
-# complete_text = ""
-# while page_counter < total_pages:
-#     temp_code = perform_post(main_url,page_counter)
-#     result.extend( extract_jobs_data(temp_code) )
-#     # temp_answer = extract_jobs_data(temp_code)
-#     # complete_text += f'{{"date":"{temp_answer.date}"'
-#     page_counter = page_counter + 1
-    
-
-# save_csv(result)
-
-# # print(result)
-
-# # perform_post('https://www.empleosmaquila.com/listaofertas.aspx')
